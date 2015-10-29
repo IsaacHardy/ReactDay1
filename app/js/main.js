@@ -52,6 +52,8 @@ var _viewsSpinner = require('./views/spinner');
 
 var _viewsSpinner2 = _interopRequireDefault(_viewsSpinner);
 
+var RECORD = { message: "All the things!" };
+
 exports['default'] = _backbone2['default'].Router.extend({
 
   routes: {
@@ -85,15 +87,21 @@ exports['default'] = _backbone2['default'].Router.extend({
   showHome: function showHome() {
     var _this = this;
 
-    this.render(_react2['default'].createElement(_viewsHome2['default'], { onFormClick: function () {
+    this.render(_react2['default'].createElement(_viewsHome2['default'], {
+      onFormClick: function () {
         return _this.goto('form');
-      } }));
+      },
+      onSpinClick: function () {
+        return _this.showSpinner();
+      }
+    }));
   },
 
   showForm: function showForm() {
     var _this2 = this;
 
     this.render(_react2['default'].createElement(_viewsFormplay2['default'], {
+      record: RECORD,
       onCancelClick: function () {
         return _this2.goto('');
       },
@@ -113,13 +121,13 @@ exports['default'] = _backbone2['default'].Router.extend({
 module.exports = exports['default'];
 
 },{"./views/formplay":3,"./views/home":4,"./views/spinner":5,"backbone":6,"react":166,"react-dom":10}],3:[function(require,module,exports){
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var _react = require('react');
 
@@ -127,12 +135,12 @@ var _react2 = _interopRequireDefault(_react);
 
 // const SECRET_MESSAGE = 'TIY ROCKS!';
 
-exports['default'] = _react2['default'].createClass({
-  displayName: 'formplay',
+exports["default"] = _react2["default"].createClass({
+  displayName: "formplay",
 
   getInitialState: function getInitialState() {
     return {
-      message: ''
+      message: this.props.record.message
     };
   },
 
@@ -159,24 +167,24 @@ exports['default'] = _react2['default'].createClass({
 
   render: function render() {
 
-    return _react2['default'].createElement(
-      'div',
+    return _react2["default"].createElement(
+      "div",
       null,
-      _react2['default'].createElement(
-        'form',
+      _react2["default"].createElement(
+        "form",
         { onSubmit: this.submitHandler },
-        _react2['default'].createElement('input', { onChange: this.updateMessage, type: 'text', value: this.state.message })
+        _react2["default"].createElement("input", { onChange: this.updateMessage, type: "text", value: this.state.message })
       ),
-      _react2['default'].createElement(
-        'button',
+      _react2["default"].createElement(
+        "button",
         { onClick: this.cancelHandler },
-        'Cancel'
+        "Cancel"
       )
     );
   }
 
 });
-module.exports = exports['default'];
+module.exports = exports["default"];
 
 },{"react":166}],4:[function(require,module,exports){
 'use strict';
@@ -194,8 +202,12 @@ var _react2 = _interopRequireDefault(_react);
 exports['default'] = _react2['default'].createClass({
   displayName: 'home',
 
-  clickHandler: function clickHandler() {
+  formClickHandler: function formClickHandler() {
     this.props.onFormClick();
+  },
+
+  spinClickHandler: function spinClickHandler() {
+    this.props.onSpinClick();
   },
 
   render: function render() {
@@ -209,8 +221,13 @@ exports['default'] = _react2['default'].createClass({
       ),
       _react2['default'].createElement(
         'button',
-        { onClick: this.clickHandler },
+        { onClick: this.formClickHandler },
         'Go to form'
+      ),
+      _react2['default'].createElement(
+        'button',
+        { onClick: this.spinClickHandler },
+        'Spin to win'
       )
     );
   }

@@ -6,7 +6,7 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      message: ''
+      message: this.props.record.message
     };
   },
 

@@ -6,6 +6,8 @@ import HomeComponent from './views/home';
 import FormComponent from './views/formplay';
 import SpinnerComponent from './views/spinner';
 
+const RECORD = {message: "All the things!"};
+
 export default Backbone.Router.extend({
 
   routes: {
@@ -38,13 +40,17 @@ export default Backbone.Router.extend({
 
   showHome() {
     this.render(
-      <HomeComponent onFormClick={() => this.goto('form')}/>
+      <HomeComponent
+       onFormClick={() => this.goto('form')}
+       onSpinClick={() => this.showSpinner()}
+      />
     );
   },
 
   showForm() {
     this.render(
       <FormComponent
+        record={RECORD}
         onCancelClick={() => this.goto('')}
         onSubmit={(msg) => this.saveForm(msg)}
       />
